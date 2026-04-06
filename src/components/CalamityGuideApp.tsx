@@ -116,30 +116,51 @@ const VANILLA_BOSSES = new Set<string>([
 ]);
 
 const VANILLA_ARMORS = new Set<string>([
-  "Gold Armor",
-  "Platinum Armor",
-  "Silver Armor",
-  "Jungle Armor",
-  "Shadow Armor",
-  "Crimson Armor",
-  "Molten Armor",
-  "Meteor Armor",
-  "Bee Armor",
-  "Spider Armor",
-  "Palladium Armor",
-  "Orichalcum Armor",
-  "Titanium Armor",
-  "Forbidden Armor",
-  "Frost Armor",
-  "Hallowed Armor",
-  "Chlorophyte Armor",
-  "Turtle Armor",
-  "Spectre Armor",
-  "Spooky Armor",
-  "Tiki Armor",
-  "Shroomite Armor",
-  "Beetle Armor",
-  "Nebula Armor",
+  "gi",
+  "gold armor",
+  "platinum armor",
+  "silver armor",
+  "gladiator armor",
+  "fossil armor",
+  "jungle armor",
+  "shadow armor",
+  "crimson armor",
+  "molten armor",
+  "meteor armor",
+  "bee armor",
+  "obsidian armor",
+  "necro armor",
+  "spider armor",
+  "cobalt armor",
+  "palladium armor",
+  "mythril armor",
+  "orichalcum armor",
+  "adamantite armor",
+  "titanium armor",
+  "forbidden armor",
+  "hallowed armor",
+  "chlorophyte armor",
+  "turtle armor",
+  "spectre armor",
+  "beetle armor",
+  "shroomite armor",
+  "tiki armor",
+  "spooky armor",
+  "solar flare armor",
+  "vortex armor",
+  "nebula armor",
+  "stardust armor",
+  "valhalla knight armor",
+  "squire armor",
+  "monk armor",
+  "apprentice armor",
+  "shinobi infiltrator armor",
+  "crystal assassin armor",
+  "flinx fur coat",
+  "diamond robe",
+  "mystic robe",
+  "magic hat",
+  "wizard hat",
 ]);
 
 const HARDMODE_BOSS_SEQUENCE = [
@@ -210,7 +231,7 @@ function sourceForBoss(boss: string): RecommendationSource {
 }
 
 function sourceForArmor(armorName: string): RecommendationSource {
-  return VANILLA_ARMORS.has(armorName) ? "terraria" : "calamity";
+  return VANILLA_ARMORS.has(armorName.toLowerCase()) ? "terraria" : "calamity";
 }
 
 function preHardmodeBossSequence(worldEvil: WorldEvil): string[] {
@@ -1022,7 +1043,10 @@ export function CalamityGuideApp() {
   const toggleArmor = (armorName: string) => {
     setObtainedArmor((prev) => {
       const next = new Set(prev);
-      if (next.has(armorName)) next.delete(armorName);
+      const existingKey = Array.from(next).find(
+        (savedName) => savedName.toLowerCase() === armorName.toLowerCase(),
+      );
+      if (existingKey) next.delete(existingKey);
       else next.add(armorName);
       return next;
     });
@@ -1694,7 +1718,10 @@ export function CalamityGuideApp() {
                 {armorRecommendations.length > 0 ? (
                   <ul className="mt-4 space-y-2">
                     {armorRecommendations.map((armor) => {
-                      const checked = obtainedArmor.has(armor);
+                      const checked = Array.from(obtainedArmor).some(
+                        (savedArmor) =>
+                          savedArmor.toLowerCase() === armor.toLowerCase(),
+                      );
                       const armorSource = sourceForArmor(armor);
                       const armorMeta = getMeta(armor, armorSource);
                       const wikiUrl =

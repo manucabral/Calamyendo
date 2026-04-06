@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import React from 'react';
-import { useGameProgress } from '@/lib/useGameProgress';
-import { ITEMS } from '@/data/items';
-import { EducationalCard } from './EducationalCard';
-import { ItemWikiIcon } from './ItemWikiIcon';
+import React from "react";
+import { useGameProgress } from "@/lib/useGameProgress";
+import { ITEMS } from "@/data/items";
+import { EducationalCard } from "./EducationalCard";
+import { ItemWikiIcon } from "./ItemWikiIcon";
 
 export function CurrentBuildSummary() {
   const { progress, isItemCompleted } = useGameProgress();
@@ -12,7 +12,9 @@ export function CurrentBuildSummary() {
   if (!progress) return null;
 
   // Obtener todos los items del usuario
-  const userItems = Object.values(ITEMS).filter((item) => isItemCompleted(item.id));
+  const userItems = Object.values(ITEMS).filter((item) =>
+    isItemCompleted(item.id),
+  );
 
   // Calcular estadísticas totales
   let totalDamage = 0,
@@ -30,10 +32,10 @@ export function CurrentBuildSummary() {
   });
 
   // Agrupar por tipo
-  const weaponsByType = userItems.filter((i) => i.type === 'weapon');
-  const armorByType = userItems.filter((i) => i.type === 'armor');
-  const accessoriesByType = userItems.filter((i) => i.type === 'accessory');
-  const potionsByType = userItems.filter((i) => i.type === 'potion');
+  const weaponsByType = userItems.filter((i) => i.type === "weapon");
+  const armorByType = userItems.filter((i) => i.type === "armor");
+  const accessoriesByType = userItems.filter((i) => i.type === "accessory");
+  const potionsByType = userItems.filter((i) => i.type === "potion");
 
   const preferredClass = progress.preferredClass;
 
@@ -51,48 +53,74 @@ export function CurrentBuildSummary() {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="card border-l-4 border-l-[var(--accent)] bg-gradient-to-r from-[var(--accent)]/10 to-transparent">
+      <div className="card border-l-4 border-l-(--accent) bg-linear-to-r from-(--accent)/10 to-transparent">
         <div className="flex items-center gap-3 mb-2">
           <div>
-            <h3 className="font-bold text-[var(--accent-light)] text-lg capitalize">
+            <h3 className="font-bold text-(--accent-light) text-lg capitalize">
               Tu Build: {preferredClass}
             </h3>
-            <p className="text-xs text-[var(--foreground)]/60">{userItems.length} items en inventario</p>
+            <p className="text-xs text-(--foreground)/60">
+              {userItems.length} items en inventario
+            </p>
           </div>
         </div>
       </div>
 
       {/* Stats Grid */}
-      {(totalDamage > 0 || totalDefense > 0 || totalCrit > 0 || totalSpeed > 0 || totalMana > 0) && (
+      {(totalDamage > 0 ||
+        totalDefense > 0 ||
+        totalCrit > 0 ||
+        totalSpeed > 0 ||
+        totalMana > 0) && (
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2">
           {totalDamage > 0 && (
-            <div className="card bg-gradient-to-br from-[var(--primary)]/10 to-transparent border-l-4 border-l-[var(--primary)] p-3">
-              <div className="text-xs text-[var(--foreground)]/70 font-bold">Daño</div>
-              <div className="text-xl font-bold text-[var(--primary-light)]">+{totalDamage}</div>
+            <div className="card bg-linear-to-br from-(--primary)/10 to-transparent border-l-4 border-l-(--primary) p-3">
+              <div className="text-xs text-(--foreground)/70 font-bold">
+                Daño
+              </div>
+              <div className="text-xl font-bold text-(--primary-light)">
+                +{totalDamage}
+              </div>
             </div>
           )}
           {totalDefense > 0 && (
-            <div className="card bg-gradient-to-br from-[var(--secondary)]/10 to-transparent border-l-4 border-l-[var(--secondary)] p-3">
-              <div className="text-xs text-[var(--foreground)]/70 font-bold">Defensa</div>
-              <div className="text-xl font-bold text-[var(--secondary-light)]">+{totalDefense}</div>
+            <div className="card bg-linear-to-br from-(--secondary)/10 to-transparent border-l-4 border-l-(--secondary) p-3">
+              <div className="text-xs text-(--foreground)/70 font-bold">
+                Defensa
+              </div>
+              <div className="text-xl font-bold text-(--secondary-light)">
+                +{totalDefense}
+              </div>
             </div>
           )}
           {totalCrit > 0 && (
-            <div className="card bg-gradient-to-br from-[var(--accent)]/10 to-transparent border-l-4 border-l-[var(--accent)] p-3">
-              <div className="text-xs text-[var(--foreground)]/70 font-bold">Crítico</div>
-              <div className="text-xl font-bold text-[var(--accent-light)]">+{totalCrit}%</div>
+            <div className="card bg-linear-to-br from-(--accent)/10 to-transparent border-l-4 border-l-(--accent) p-3">
+              <div className="text-xs text-(--foreground)/70 font-bold">
+                Crítico
+              </div>
+              <div className="text-xl font-bold text-(--accent-light)">
+                +{totalCrit}%
+              </div>
             </div>
           )}
           {totalSpeed > 0 && (
-            <div className="card bg-gradient-to-br from-[var(--warning)]/10 to-transparent border-l-4 border-l-[var(--warning)] p-3">
-              <div className="text-xs text-[var(--foreground)]/70 font-bold">Velocidad</div>
-              <div className="text-xl font-bold text-[var(--warning)]">+{(totalSpeed * 10).toFixed(0)}%</div>
+            <div className="card bg-linear-to-br from-(--warning)/10 to-transparent border-l-4 border-l-(--warning) p-3">
+              <div className="text-xs text-(--foreground)/70 font-bold">
+                Velocidad
+              </div>
+              <div className="text-xl font-bold text-(--warning)">
+                +{(totalSpeed * 10).toFixed(0)}%
+              </div>
             </div>
           )}
           {totalMana > 0 && (
-            <div className="card bg-gradient-to-br from-[var(--success)]/10 to-transparent border-l-4 border-l-[var(--success)] p-3">
-              <div className="text-xs text-[var(--foreground)]/70 font-bold">Maná</div>
-              <div className="text-xl font-bold text-[var(--success)]">+{totalMana}</div>
+            <div className="card bg-linear-to-br from-(--success)/10 to-transparent border-l-4 border-l-(--success) p-3">
+              <div className="text-xs text-(--foreground)/70 font-bold">
+                Maná
+              </div>
+              <div className="text-xl font-bold text-(--success)">
+                +{totalMana}
+              </div>
             </div>
           )}
         </div>
@@ -101,14 +129,21 @@ export function CurrentBuildSummary() {
       {/* Items by Type */}
       <div className="grid md:grid-cols-2 gap-3">
         {weaponsByType.length > 0 && (
-          <div className="card bg-[var(--primary)]/5 border-l-4 border-l-[var(--primary)]">
-            <h4 className="font-bold text-[var(--primary-light)] mb-2">
+          <div className="card bg-(--primary)/5 border-l-4 border-l-(--primary)">
+            <h4 className="font-bold text-(--primary-light) mb-2">
               Armas ({weaponsByType.length})
             </h4>
             <ul className="text-xs space-y-1">
               {weaponsByType.map((item) => (
-                <li key={item.id} className="text-[var(--foreground)]/80 flex items-center gap-2">
-                  <ItemWikiIcon itemName={item.name} size={18} fallbackIcon="⚔️" />
+                <li
+                  key={item.id}
+                  className="text-(--foreground)/80 flex items-center gap-2"
+                >
+                  <ItemWikiIcon
+                    itemName={item.name}
+                    size={18}
+                    fallbackIcon="⚔️"
+                  />
                   <span>{item.name}</span>
                 </li>
               ))}
@@ -117,14 +152,21 @@ export function CurrentBuildSummary() {
         )}
 
         {armorByType.length > 0 && (
-          <div className="card bg-[var(--secondary)]/5 border-l-4 border-l-[var(--secondary)]">
-            <h4 className="font-bold text-[var(--secondary-light)] mb-2">
+          <div className="card bg-(--secondary)/5 border-l-4 border-l-(--secondary)">
+            <h4 className="font-bold text-(--secondary-light) mb-2">
               Armadura ({armorByType.length})
             </h4>
             <ul className="text-xs space-y-1">
               {armorByType.map((item) => (
-                <li key={item.id} className="text-[var(--foreground)]/80 flex items-center gap-2">
-                  <ItemWikiIcon itemName={item.name} size={18} fallbackIcon="🛡️" />
+                <li
+                  key={item.id}
+                  className="text-(--foreground)/80 flex items-center gap-2"
+                >
+                  <ItemWikiIcon
+                    itemName={item.name}
+                    size={18}
+                    fallbackIcon="🛡️"
+                  />
                   <span>{item.name}</span>
                 </li>
               ))}
@@ -133,14 +175,21 @@ export function CurrentBuildSummary() {
         )}
 
         {accessoriesByType.length > 0 && (
-          <div className="card bg-[var(--accent)]/5 border-l-4 border-l-[var(--accent)]">
-            <h4 className="font-bold text-[var(--accent-light)] mb-2">
+          <div className="card bg-(--accent)/5 border-l-4 border-l-(--accent)">
+            <h4 className="font-bold text-(--accent-light) mb-2">
               Accesorios ({accessoriesByType.length})
             </h4>
             <ul className="text-xs space-y-1">
               {accessoriesByType.map((item) => (
-                <li key={item.id} className="text-[var(--foreground)]/80 flex items-center gap-2">
-                  <ItemWikiIcon itemName={item.name} size={18} fallbackIcon="✨" />
+                <li
+                  key={item.id}
+                  className="text-(--foreground)/80 flex items-center gap-2"
+                >
+                  <ItemWikiIcon
+                    itemName={item.name}
+                    size={18}
+                    fallbackIcon="✨"
+                  />
                   <span>{item.name}</span>
                 </li>
               ))}
@@ -149,14 +198,21 @@ export function CurrentBuildSummary() {
         )}
 
         {potionsByType.length > 0 && (
-          <div className="card bg-[var(--success)]/5 border-l-4 border-l-[var(--success)]">
-            <h4 className="font-bold text-[var(--success)] mb-2">
+          <div className="card bg-(--success)/5 border-l-4 border-l-(--success)">
+            <h4 className="font-bold text-(--success) mb-2">
               Pociones ({potionsByType.length})
             </h4>
             <ul className="text-xs space-y-1">
               {potionsByType.map((item) => (
-                <li key={item.id} className="text-[var(--foreground)]/80 flex items-center gap-2">
-                  <ItemWikiIcon itemName={item.name} size={18} fallbackIcon="🧪" />
+                <li
+                  key={item.id}
+                  className="text-(--foreground)/80 flex items-center gap-2"
+                >
+                  <ItemWikiIcon
+                    itemName={item.name}
+                    size={18}
+                    fallbackIcon="🧪"
+                  />
                   <span>{item.name}</span>
                 </li>
               ))}
