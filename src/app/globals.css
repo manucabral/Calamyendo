@@ -1,0 +1,103 @@
+@import "tailwindcss";
+
+:root {
+  --font-display: 'Bebas Neue', 'Arial Narrow', sans-serif;
+  --font-body: 'IBM Plex Sans', 'Segoe UI', sans-serif;
+  --paper: #020617;
+  --ink: #e2e8f0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+html {
+  font-family: var(--font-body);
+  scroll-behavior: smooth;
+  background: var(--paper);
+}
+
+body {
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse at 8% 10%, rgba(34, 211, 238, 0.12), transparent 32%),
+    radial-gradient(ellipse at 88% 15%, rgba(59, 130, 246, 0.14), transparent 36%),
+    radial-gradient(ellipse at 65% 85%, rgba(14, 116, 144, 0.18), transparent 42%),
+    radial-gradient(ellipse at 30% 60%, rgba(109, 40, 217, 0.06), transparent 30%),
+    var(--paper);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.wiki-app {
+  position: relative;
+  isolation: isolate;
+}
+
+.wiki-app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.42;
+  background-image: radial-gradient(rgba(148, 163, 184, 0.22) 0.55px, transparent 0.55px);
+  background-size: 3px 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  header {
+    animation: reveal-up 0.4s ease-out both;
+  }
+
+  main > section:nth-child(1) { animation: reveal-up 0.4s ease-out 0.06s both; }
+  main > section:nth-child(2) { animation: reveal-up 0.4s ease-out 0.12s both; }
+  main > section:nth-child(3) { animation: reveal-up 0.4s ease-out 0.18s both; }
+  main > section:nth-child(4) { animation: reveal-up 0.4s ease-out 0.24s both; }
+  main > section:nth-child(5) { animation: reveal-up 0.4s ease-out 0.30s both; }
+  main > section:nth-child(n+6) { animation: reveal-up 0.4s ease-out 0.34s both; }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: rgba(100, 116, 139, 0.45);
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.65);
+}
